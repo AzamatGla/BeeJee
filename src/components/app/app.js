@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import AppHeader from '../app-header/';
-import PostList from '../post-list';
-import PostAddForm from '../post-add-form/';
+import TodoList from '../todo-list';
+import AddForm from '../add-form';
 import ModalForm from '../modal-form/modal-form';
 import Pagination from '../pagination/pagination';
-import PostStatusFilter from '../post-status-filter/post-status-filter';
 import {fetchTodoList, createTask} from '../../api/api';
 import './app.css'
 import { Container } from 'reactstrap';
@@ -122,10 +121,9 @@ export default class App extends Component {
         return (
             <div className='app'>
                 <AppHeader/>
-                <PostStatusFilter/>
-                <PostList data={this.state.data.message} onDone={this.onDone}/>
+                <TodoList data={this.state.data.message} onDone={this.onDone}/>
                 <Pagination changePage={this.changePage}/>
-                <PostAddForm onInput={this.onInput} postData={this.postData}/>
+                <AddForm onInput={this.onInput} postData={this.postData}/>
                 <ModalForm postData={this.postData} onValueChange={this.onValueChange}/>
             </div>
             )

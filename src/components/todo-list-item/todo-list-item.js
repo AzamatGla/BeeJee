@@ -1,7 +1,7 @@
  import React, { Component } from 'react';
-import './post-list-item.css';
+import './todo-list-item.css';
 
-export default class PostItem extends Component {
+export default class TodoItem extends Component {
     constructor(props) {
         super(props);
     }

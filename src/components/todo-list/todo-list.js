@@ -1,16 +1,9 @@
 import React from 'react';
-import PostItem from '../post-list-item/'
-import './post-list.css';
+import TodoItem from '../todo-list-item';
+import './todo-list.css';
 
-// const PostList = ({data, onDone}) => {
-//     console.log(data.tasks)
 
-//     return (
-//         <div>No data</div>
-//     )
-// }
-
-const PostList = ({data, onDone}) => {
+const TodoList = ({data, onDone}) => {
     let elements = null;
     if (!data.tasks) {
         elements = <span className='h3'>No tasks yet...</span>
@@ -19,7 +12,7 @@ const PostList = ({data, onDone}) => {
         elements = data.tasks.map(item => {
 
             return (<>
-                <PostItem 
+                <TodoItem 
                     className="list-group-item" 
                     {...item} 
                     onDone={()=> onDone(item.id)}
@@ -40,4 +33,4 @@ const PostList = ({data, onDone}) => {
     
 }
 
-export default PostList;
+export default TodoList;

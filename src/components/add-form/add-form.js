@@ -1,8 +1,8 @@
 import React from 'react';
-import './post-add-form.css';
+import './add-form.css';
 
 
-const PostAddForm = ({onInput, postData}) => {
+const AddForm = ({onInput, postData}) => {
     return (
         <div className="d-flex bottom-panel justify-content-center">
             <button className='btn btn-info' data-toggle="modal" data-target="#exampleModal">Добавить</button>
@@ -10,4 +10,4 @@ const PostAddForm = ({onInput, postData}) => {
     )
 }
 
-export default PostAddForm;
+export default AddForm;
