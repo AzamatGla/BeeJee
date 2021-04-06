@@ -56,3 +56,19 @@
 .line-through {
   text-decoration: line-through;
 }
+
+.username {
+  width: 100px;
+}
+
+.email {
+  width: 120px;
+}
+
+.text {
+  width: 200px;
+}
+
+.status {
+  width: 200px;
+}

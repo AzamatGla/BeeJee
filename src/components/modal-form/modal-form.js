@@ -1,12 +1,19 @@
 import React from 'react';
 
-const ModalForm = ({postData, onValueChange}) => {
+const ModalForm = ({postData, onValueChange, username, email, text, errors}) => {
+    const submitButton = () => {
+        if (!errors.title && errors.email) {
+            return (<button type="submit" class="btn btn-primary" data-dismiss="modal" onClick={postData}>Send message</button>)
+        }
+        return (<button type="button" class="btn btn-primary">Send message</button>)
+        
+    };
     return (
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">New task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,22 +21,26 @@ const ModalForm = ({postData, onValueChange}) => {
             <div class="modal-body">
                 <form>
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">username:</label>
-                    <input type="text" name='username' class="form-control" id="recipient-name" onChange={onValueChange}/>
+                    <label htmlFor="recipient-name" class="col-form-label">username:
+                        {errors.title && <span className='error-red'>&nbsp;{errors.title}</span>}
+                    </label>
+                    <input type="text" name='username' value={username} className="form-control" id="recipient-name" onChange={onValueChange}/>
                 </div>
                 <div class="form-group">
-                    <label for="message-text" class="col-form-label">email:</label>
-                    <input type="text" name='email' class="form-control" id="message-text" onChange={onValueChange}/>
+                    <label htmlFor="message-text" class="col-form-label">email:
+                        {errors.email && <span className='error-red'>&nbsp;{errors.email}</span>}
+                    </label>
+                    <input type="text" name='email' value={email} className="form-control" id="message-text" onChange={onValueChange}/>
                 </div>
                 <div class="form-group">
-                    <label for="message-text" class="col-form-label">text:</label>
-                    <textarea class="form-control" name='text' id="message-text" onChange={onValueChange}></textarea>
+                    <label htmlFor="message-text" class="col-form-label">text:</label>
+                    <input type="text" name='text' className='form-control' value={text} onChange={onValueChange}/>
                 </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" data-dismiss="modal" onClick={postData}>Send message</button>
+                {submitButton()}
             </div>
             </div>
         </div>

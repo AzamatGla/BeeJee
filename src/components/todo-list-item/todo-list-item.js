@@ -1,4 +1,5 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
+import Edit from './edit/edit';
 import './todo-list-item.css';
 
 export default class TodoItem extends Component {
@@ -7,7 +8,7 @@ export default class TodoItem extends Component {
     }
 
     render() {
-        const {text, id, username, email, status, onDone, done} = this.props;
+        const {text, id, username, email, status, onDone, done, tokenIsSet, onValueChange} = this.props;
         let className = 'app-list-item d-flex justify-content-between';
         let statusMessage = '';
         if (done) {
@@ -27,13 +28,22 @@ export default class TodoItem extends Component {
         }
         return (
             <li className={className} key={id}>
-                <span className="app-list-item-label">{username}</span>
-                <span className="app-list-item-label">{email}</span>
-                <span className="app-list-item-label">{text}</span>
-                <span className="app-list-item-label">{statusMessage}</span>
+                <div className='username'>
+                    <span className="app-list-item-label">{username}</span>
+                </div>
+                <div className="email">
+                    <span className="app-list-item-label">{email}</span>
+                </div>
+                <div className="text d-flex justify-content-center">
+                    <span className="app-list-item-label">{text}</span>
+                </div>
+                <div className="status">
+                    <span className="app-list-item-label">{statusMessage}</span>
+                </div>
                  <div className="d-flex justify-content-center align-items-center">
                      <input className='checkbox form-check-input' type='checkbox' onClick={onDone}/>
                  </div>
+                 {tokenIsSet && <Edit onValueChange={onValueChange}/>}
              </li>
         )
     }

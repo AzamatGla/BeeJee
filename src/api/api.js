@@ -1,7 +1,11 @@
 const mainUrl = 'https://uxcandy.com/~shapoval/test-task-backend/v2/';
 const developer = 'azamat';
 const fetchTodoList = (currentPage) => {
-    return fetch(`${mainUrl}?developer=${developer}&page=${currentPage}`);
+    let page = 1;
+    if(typeof currentPage !== "undefined") {
+        page = currentPage;
+    }
+    return fetch(`${mainUrl}?developer=${developer}&page=${page}`);
 };
 
 const createTask = (username, email, text) => {
@@ -16,5 +20,29 @@ const createTask = (username, email, text) => {
     return fetch(`${mainUrl}create?developer=${developer}`, requestOptions);
 }
 
-export {fetchTodoList, createTask}
+const login = (username, password) => {
+    let form = new FormData();
+        form.append("username", username);
+        form.append("password", password);
+    const requestOptions = {
+        method: 'POST',
+        body: form
+    };
+    return fetch(`${mainUrl}login?developer=${developer}`, requestOptions);
+}
+
+const edit = (id, text, status) => {
+    let form = new FormData();
+        form.append('token', window.localStorage.getItem('access token'));
+        form.append('text', text);
+        form.append('status', status);
+    const requestOptions = {
+        method: 'POST',
+        body: form
+    };
+
+    return fetch(`${mainUrl}edit/${id}?developer=${developer}`, requestOptions);
+}
+
+export {fetchTodoList, createTask, login, edit}
 // module.export = createTask;

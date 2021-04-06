@@ -3,7 +3,7 @@ import TodoItem from '../todo-list-item';
 import './todo-list.css';
 
 
-const TodoList = ({data, onDone}) => {
+const TodoList = ({data, onDone, tokenIsSet, onValueChange}) => {
     let elements = null;
     if (!data.tasks) {
         elements = <span className='h3'>No tasks yet...</span>
@@ -16,6 +16,8 @@ const TodoList = ({data, onDone}) => {
                     className="list-group-item" 
                     {...item} 
                     onDone={()=> onDone(item.id)}
+                    tokenIsSet={tokenIsSet}
+                    onValueChange={onValueChange}
                 /> 
                 </>
             )
