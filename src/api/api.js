@@ -32,6 +32,7 @@ const login = (username, password) => {
 }
 
 const edit = (id, text, status) => {
+    console.log('inside it')
     let form = new FormData();
         form.append('token', window.localStorage.getItem('access token'));
         form.append('text', text);
@@ -40,7 +41,7 @@ const edit = (id, text, status) => {
         method: 'POST',
         body: form
     };
-
+    console.log(id, text, status)
     return fetch(`${mainUrl}edit/${id}?developer=${developer}`, requestOptions);
 }
 

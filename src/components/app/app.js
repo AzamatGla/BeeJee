@@ -15,6 +15,7 @@ export default class App extends Component {
             username: '',
             email: '',
             text: '',
+            status: '',
             currentPage: 1,
             firstPage: 1,
             secondPage: 2,
@@ -37,8 +38,10 @@ export default class App extends Component {
         this.handleValidation = this.handleValidation.bind(this);
         this.loginAdminAuthentication = this.loginAdminAuthentication.bind(this);
         this.logout = this.logout.bind(this);
+        this.checkAuth = this.checkAuth.bind(this);
     }
     componentDidMount() {
+        this.checkAuth();
         fetchTodoList(this.state.currentPage)
         .then(response => response.json())
         .then(data => {
@@ -53,18 +56,48 @@ export default class App extends Component {
         }
     }
 
-    onDone(id) {
+    checkAuth() {
+        let decodedToken = localStorage.getItem('access token');
+        if (decodedToken.exp < new Date().getTime()/1000) {
+            this.setState(({tokenIsSet}) => ({
+            tokenIsSet: false
+            }));
+        }
+        
+    }
+
+    async onDone(e, id) {
         const {data} = this.state,
               index = data.message.tasks.findIndex((item) => item.id === id),
               before = data.message.tasks.slice(0, index),
               after = data.message.tasks.slice(index+1);
         const newItem = data.message.tasks[index];
-              if (newItem.status === 0) {
-                newItem.status = 10;
-              }
-              else {
-                  newItem.status = 0;
-              }            
+            
+            if (e.target.value === 'on' || e.target.value === 'off') {
+                if (newItem.status === 0) {
+                    newItem.status = 10;
+                }
+                else {
+                    newItem.status = 0;
+                }   
+            }
+            else {
+                
+                if (this.state.status == 0) {
+                    newItem.status = 0;
+                }
+                else if (this.state.status == 1) {
+                    newItem.status = 1;
+                }
+                else if (this.state.status == 10) {
+                    newItem.status = 10;
+                }
+                else {
+                    newItem.status = 11;
+                }
+            }
+            
+                       
               
         const newArr = [...before, newItem, ...after]
         const newObj = {
@@ -73,9 +106,13 @@ export default class App extends Component {
                 tasks: newArr
             }
         }
-        return this.setState(({data}) => ({
+        await this.setState(({data}) => ({
            data : newObj}
         ));
+        return edit(id, newItem.text, newItem.status)
+            .then(res => res.json)
+            .then(res => res)
+            .catch(err => console.log(err));
     }
 
     async emptyInputFields() {
@@ -139,13 +176,20 @@ export default class App extends Component {
                 adminPassword: newItem.password
             }))
         }
+        else if (e.target.name === 'status') {
+            newItem.status = e.target.value;
+            await this.setState(({status}) => ({
+                status: newItem.status
+            }))
+           
+        }
         else {
             newItem.text = e.target.value;
             await this.setState(({text}) => ({
             text: newItem.text
             })
         )
-        console.log(this.state.text)
+        
         }
         return this.handleValidation(e.target);
         
@@ -242,16 +286,15 @@ export default class App extends Component {
             .then(res => {
                 if (res.status === 'ok') {
                     window.localStorage.setItem('access token', res.message.token)
-                    this.setState(({tokenIsSet}) => ({
-                        tokenIsSet: true
+                    this.setState(({tokenIsSet, tokenTime}) => ({
+                        tokenIsSet: true,
+                        tokenTime: new Date()
                     }))
-                    console.log('ok')
                 }
                 else {
                     this.setState(({tokenError}) => ({
                         tokenError: 'Неверный логин или пароль'
                     }))
-                    console.log('else')
                 }
             })
             .catch(err => console.log(err))
@@ -264,9 +307,6 @@ export default class App extends Component {
        }));
    }
 
-   editByAdmin(id, status) {
-        edit(id, )
-   }
     
     render() {
         const {data, firstPage, secondPage, thirdPage, username, email, text, errors, tokenIsSet, tokenError} = this.state;
