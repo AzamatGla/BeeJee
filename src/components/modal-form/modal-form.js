@@ -2,9 +2,15 @@ import React from 'react';
 
 const ModalForm = ({postData, onValueChange, username, email, text, errors}) => {
     const submitButton = () => {
-        if (!errors.title && errors.email) {
+        console.log(errors.title);
+        console.log(errors.email);
+        if (errors.title == false && errors.email == false) {
+            console.log('yes')
             return (<button type="submit" class="btn btn-primary" data-dismiss="modal" onClick={postData}>Send message</button>)
+        
         }
+        console.log('here')
+        console.log(errors)
         return (<button type="button" class="btn btn-primary">Send message</button>)
         
     };

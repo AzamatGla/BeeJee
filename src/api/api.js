@@ -1,5 +1,5 @@
 const mainUrl = 'https://uxcandy.com/~shapoval/test-task-backend/v2/';
-const developer = 'azamat';
+const developer = 'azamata';
 const fetchTodoList = (currentPage) => {
     let page = 1;
     if(typeof currentPage !== "undefined") {

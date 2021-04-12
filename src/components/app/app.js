@@ -57,12 +57,16 @@ export default class App extends Component {
     }
 
     checkAuth() {
-        let decodedToken = localStorage.getItem('access token');
-        if (decodedToken.exp < new Date().getTime()/1000) {
-            this.setState(({tokenIsSet}) => ({
-            tokenIsSet: false
-            }));
+        let decodedToken = window.localStorage.getItem('access token');
+        if (decodedToken) {
+            if (decodedToken.exp < new Date().getTime()/1000) {
+                this.setState(({tokenIsSet}) => ({
+                tokenIsSet: false
+                }));
+            }
         }
+        
+        
         
     }
 
@@ -74,12 +78,19 @@ export default class App extends Component {
         const newItem = data.message.tasks[index];
             
             if (e.target.value === 'on' || e.target.value === 'off') {
-                if (newItem.status === 0) {
-                    newItem.status = 10;
+                if (this.state.tokenIsSet) {
+                    if (newItem.status === 0) {
+                        newItem.status = 10;
+                    }
+                    else {
+                        newItem.status = 0;
+                    }   
                 }
                 else {
-                    newItem.status = 0;
-                }   
+                    e.preventDefault();
+                    alert('Только админ может изменять состояние задачи');
+                }
+                
             }
             else {
                 
@@ -96,6 +107,7 @@ export default class App extends Component {
                     newItem.status = 11;
                 }
             }
+            newItem.text = this.state.text;
             
                        
               
@@ -109,6 +121,7 @@ export default class App extends Component {
         await this.setState(({data}) => ({
            data : newObj}
         ));
+        console.log(this.state.data)
         return edit(id, newItem.text, newItem.status)
             .then(res => res.json)
             .then(res => res)
