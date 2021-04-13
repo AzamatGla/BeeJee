@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/BeeJee/static/css/main.d65b9a76.chunk.css",
+    "main.js": "/BeeJee/static/js/main.afd795bd.chunk.js",
+    "main.js.map": "/BeeJee/static/js/main.afd795bd.chunk.js.map",
+    "runtime-main.js": "/BeeJee/static/js/runtime-main.7d3aa076.js",
+    "runtime-main.js.map": "/BeeJee/static/js/runtime-main.7d3aa076.js.map",
+    "static/js/2.6d6b4d0a.chunk.js": "/BeeJee/static/js/2.6d6b4d0a.chunk.js",
+    "static/js/2.6d6b4d0a.chunk.js.map": "/BeeJee/static/js/2.6d6b4d0a.chunk.js.map",
+    "index.html": "/BeeJee/index.html",
+    "static/css/main.d65b9a76.chunk.css.map": "/BeeJee/static/css/main.d65b9a76.chunk.css.map",
+    "static/js/2.6d6b4d0a.chunk.js.LICENSE.txt": "/BeeJee/static/js/2.6d6b4d0a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7d3aa076.js",
+    "static/js/2.6d6b4d0a.chunk.js",
+    "static/css/main.d65b9a76.chunk.css",
+    "static/js/main.afd795bd.chunk.js"
+  ]
+}
